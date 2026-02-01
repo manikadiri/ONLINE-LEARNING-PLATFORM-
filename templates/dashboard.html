@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="fw-bold">Dashboard</h2>
+<p>Select a lesson to start learning.</p>
+
+<div class="row">
+  {% for lesson in lessons %}
+  <div class="col-md-6 mt-4">
+    <div class="card lesson-card p-3">
+      <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+        <div class="flex-grow-1">
+          <h4>{{ lesson[1] }}</h4>
+          <div class="lesson-meta">
+            {% if lesson[2] == 1 %}
+              <span class="badge bg-success badge-status"><i class="fa fa-check-circle me-1"></i> Completed</span>
+            {% else %}
+              <span class="badge bg-secondary badge-status"><i class="fa fa-clock me-1"></i> Not Started</span>
+            {% endif %}
+            <div class="progress-pill"><span style="width: {{ 100 if lesson[2]==1 else 8 }}%"></span></div>
+            <small class="small-muted ms-2">Quiz: {{ lesson[3] if lesson|length>3 and lesson[3] is not none else 0 }}/2</small>
+          </div>
+        </div>
+        <div class="lesson-actions" style="min-width:220px;">
+          <a href="/course/{{ lesson[0] }}" class="btn btn-watch w-100"><i class="fa fa-play me-2"></i> Watch Lesson</a>
+          <a href="/quiz/{{ lesson[0] }}" class="btn btn-quiz w-100"><i class="fa fa-question-circle me-2"></i> Take Quiz</a>
+          <a href="/complete/{{ lesson[0] }}" class="btn btn-complete w-100"><i class="fa fa-check me-2"></i> Mark Completed</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<a href="/progress" class="btn btn-dark mt-4 view-progress">View Progress</a>
+{% endblock %}

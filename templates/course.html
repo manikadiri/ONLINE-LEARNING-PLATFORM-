@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ lesson[1] }}</h2>
+
+<div class="video-box shadow mt-3">
+  {% if lesson[2].startswith('http') %}
+    {% if 'youtube' in lesson[2] or 'youtu.be' in lesson[2] %}
+      {% set embed = lesson[2].replace('watch?v=', 'embed/').split('&')[0].replace('youtu.be/','www.youtube.com/embed/') %}
+      <div class="ratio ratio-16x9">
+        <iframe src="{{ embed }}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    {% else %}
+      <a href="{{ lesson[2] }}" target="_blank" rel="noopener" class="btn btn-watch w-100">Open Video</a>
+    {% endif %}
+  {% else %}
+    <video controls autoplay width="100%">
+      <source src="{{ url_for('static', filename=lesson[2]) }}" type="video/mp4">
+      Your browser does not support video.
+    </video>
+  {% endif %}
+</div>
+
+<a href="/dashboard" class="btn btn-secondary mt-3">Back</a>
+{% endblock %}

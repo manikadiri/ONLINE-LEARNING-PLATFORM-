@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="fw-bold">Your Progress 📊</h2>
+
+<table class="table table-bordered table-striped mt-3">
+  <tr>
+    <th>Lesson</th>
+    <th>Completed</th>
+    <th>Quiz Score</th>
+  </tr>
+
+  {% for row in data %}
+  <tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ "Yes ✅" if row[1]==1 else "No ❌" }}</td>
+    <td>{{ row[2] if row[2] else 0 }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<a href="/dashboard" class="btn btn-secondary">Back</a>
+{% endblock %}

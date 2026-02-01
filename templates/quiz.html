@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Quiz</h2>
+
+<form method="POST" class="card p-4 shadow">
+  {% for ques in questions %}
+    {% set qidx = loop.index0 %}
+    <h5 class="mt-3">{{ loop.index }}. {{ ques.q }}</h5>
+    {% for opt in ques.options %}
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="q{{ qidx }}" value="{{ opt }}" required>
+        <label class="form-check-label">{{ opt }}</label>
+      </div>
+    {% endfor %}
+  {% endfor %}
+  <button class="btn btn-success mt-4 w-100">Submit Quiz</button>
+</form>
+{% endblock %}
